@@ -35,15 +35,6 @@ def get_links(data):
 
 def get_book(address, **kwargs):
     """Get the book, unzip, parse and put to database"""
-    
-    
-
-    #TODO: get the book, unzip it
-    print "getting book from " + address
-
-    #TODO: replace this with actual content
-    f = open("pg5500.txt", "r")
-    bookdata = f.read()
 
     connection = kwargs["connection"]
     cursor = connection.cursor()
@@ -59,10 +50,9 @@ def get_book(address, **kwargs):
             zipdata = StringIO.StringIO(remotefile.read())
             archive = zipfile.ZipFile(zipdata, "r")
             # We can(?) assume that there is only one file in the archive
-            print archive.namelist()[0]
+            print "getting book from " + address
             bookdata = archive.read(archive.namelist()[0])
             archive.close()
-#            print bookdata
         except Exception, err:
             print Exception, err
             print "ERROR: failed to download/unzip " + address
